@@ -1,0 +1,710 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{7B513674-FE18-4BCD-A20E-4919EA983FEC}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>InsERTApp</RootNamespace>
+    <AssemblyName>InsERTApp</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.16.0.0, Culture=neutral, PublicKeyToken=8fb06cb64d019a17, processorArchitecture=MSIL">
+      <HintPath>..\packages\DocumentFormat.OpenXml.2.16.0\lib\net46\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.API">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.API.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="InsERT.Moria.API.Private">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.API.Private.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.API.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.API.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.API.Uprawnienia">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.API.Uprawnienia.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.APIRozszerzen">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.APIRozszerzen.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Archiwa">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Archiwa.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Archiwa.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Archiwa.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Archiwa.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Archiwa.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Archiwa.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Archiwa.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Asortymenty">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Asortymenty.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Asortymenty.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Asortymenty.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Asortymenty.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Asortymenty.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Bank">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Bank.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Bank.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Bank.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Bank.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Bank.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Bank.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Bank.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.BankowoscElektroniczna">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.BankowoscElektroniczna.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.BibliotekaDokumentow">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.BibliotekaDokumentow.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.BibliotekaMultimediow.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.BibliotekaMultimediow.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.BibliotekaZalacznikow">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.BibliotekaZalacznikow.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.BibliotekaZalacznikow.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.BibliotekaZalacznikow.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.BibliotekaZalacznikow.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.BibliotekaZalacznikow.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.BibliotekaZalacznikow.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310.\Bin\InsERT.Moria.BibliotekaZalacznikow.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.BusinessResources">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.BusinessResources.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.BusinessResources.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.BusinessResources.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Cenniki">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Cenniki.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Cenniki.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Cenniki.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Cenniki.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Cenniki.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Cenniki.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Cenniki.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.CennikUslugBiura.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.CennikUslugBiura.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.CennikUslugBiura.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.CennikUslugBiura.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Components.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Components.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Components.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Components.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Configuration.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Configuration.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.DaneDomyslne">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.DaneDomyslne.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.DatabaseManagement">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.DatabaseManagement.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.DatabaseUpdate.PostDaneDomyslneUpdate">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.DatabaseUpdate.PostDaneDomyslneUpdate.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.DatabaseUpdate.PostModelDanychUpdate">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.DatabaseUpdate.PostModelDanychUpdate.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.DatabaseUpdate.PostWydrukiDaneDomyslneUpdate">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.DatabaseUpdate.PostWydrukiDaneDomyslneUpdate.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.DatabaseUpdate.PreModelDanychUpdate">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.DatabaseUpdate.PreModelDanychUpdate.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Deklaracje">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Deklaracje.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Deklaracje.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Deklaracje.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Deklaracje.Definicje">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Deklaracje.Definicje.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Deklaracje.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Deklaracje.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Deklaracje.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Deklaracje.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.DeklaracjeZUS">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.DeklaracjeZUS.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.DeklaracjeZUS.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.DeklaracjeZUS.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.DeklaracjeZUS.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.DeklaracjeZUS.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.DeklaracjeZUS.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.DeklaracjeZUS.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Dokumenty.SQL">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Dokumenty.SQL.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.DokumentyDoKsiegowania">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.DokumentyDoKsiegowania.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.DokumentyDoKsiegowania.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.DokumentyDoKsiegowania.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.DokumentyDoKsiegowania.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.DokumentyDoKsiegowania.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.DokumentyDoKsiegowania.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.DokumentyDoKsiegowania.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.DokumentyDoKsiegowania.Wspomaganie">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.DokumentyDoKsiegowania.Wspomaganie.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.DokumentyDoKsiegowania.Wspomaganie.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.DokumentyDoKsiegowania.Wspomaganie.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.DowodyWewnetrzne">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.DowodyWewnetrzne.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.DowodyWewnetrzne.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.DowodyWewnetrzne.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.DowodyWewnetrzne.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.DowodyWewnetrzne.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.DowodyWewnetrzne.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.DowodyWewnetrzne.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Dzialania">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Dzialania.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Dzialania.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Dzialania.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Dzialania.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Dzialania.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Dzialania.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Dzialania.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Egzekutor.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Egzekutor.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.EgzekutorMagazynowy">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.EgzekutorMagazynowy.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.EwidencjaVAT">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.EwidencjaVAT.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.EwidencjaVAT.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.EwidencjaVAT.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.EwidencjaVAT.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.EwidencjaVAT.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.EwidencjaVAT.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.EwidencjaVAT.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Extensions">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.ExternalDatabaseAccess">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.ExternalDatabaseAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Feniks.ConnectorAPI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Feniks.ConnectorAPI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Filters">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Filters.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Finanse">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Finanse.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Finanse.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Finanse.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Finanse.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Finanse.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Finanse.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Finanse.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Flagi">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Flagi.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Flagi.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Flagi.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.HOPy">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.HOPy.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.HOPy.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.HOPy.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.HOPy.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.HOPy.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.HOPy.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.HOPy.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.ImportKsiegowy">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.ImportKsiegowy.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.ImportKsiegowy.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.ImportKsiegowy.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.ImportKsiegowy.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.ImportKsiegowy.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.ImportKsiegowy.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.ImportKsiegowy.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Inwentaryzacja">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Inwentaryzacja.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Inwentaryzacja.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Inwentaryzacja.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Inwentaryzacja.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Inwentaryzacja.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Inwentaryzacja.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Inwentaryzacja.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Kadry">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Kadry.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Kadry.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Kadry.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Kadry.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Kadry.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Kadry.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Kadry.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Kalendarze">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Kalendarze.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Kalendarze.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Kalendarze.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Kasa">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Kasa.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Kasa.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Kasa.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Kasa.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Kasa.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Kasa.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Kasa.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Klienci">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Klienci.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Klienci.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Klienci.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Klienci.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Klienci.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Klienci.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Klienci.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.KlienciBiura">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.KlienciBiura.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.KlienciBiura.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.KlienciBiura.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.KlienciBiura.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.KlienciBiura.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.KlienciBiura.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.KlienciBiura.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.KlientPoczty">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.KlientPoczty.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.KlientPoczty.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.KlientPoczty.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.KlientPoczty.SQL">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.KlientPoczty.SQL.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.KlientPoczty.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.KlientPoczty.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.KlientPoczty.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.KlientPoczty.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Komunikacja">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Komunikacja.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Komunikacja.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Komunikacja.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Komunikacja.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Komunikacja.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Komunikacja.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Komunikacja.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Komunikacja.WspoldzielenieZalacznikow">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Komunikacja.WspoldzielenieZalacznikow.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.KontrolaSkarbowa">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.KontrolaSkarbowa.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.KontrolaSkarbowa.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.KontrolaSkarbowa.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.KontrolaSkarbowa.Definicje">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.KontrolaSkarbowa.Definicje.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.KontrolaSkarbowa.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.KontrolaSkarbowa.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.KontrolaSkarbowa.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.KontrolaSkarbowa.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Logistyka">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Logistyka.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Logistyka.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Logistyka.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Logistyka.UI">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Logistyka.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Logistyka.UI.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Logistyka.UI.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.ModelDanych">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.ModelDanych.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Search.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8f3ef93a6b458098, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Search.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Security, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8f3ef93a6b458098, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Security.Configuration, Version=1.0.0.0, Culture=neutral, PublicKeyToken=8f3ef93a6b458098, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Security.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Security.Core">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\x86\InsERT.Moria.Security.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Sfera">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Sfera.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Moria.Waluty">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Moria.Waluty.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.ApplicationStates">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.ApplicationStates.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.Core">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.Core.BusinessAspects">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.Core.BusinessAspects.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.Core.BusinessAspects.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.Core.BusinessAspects.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.Core.Modules">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.Core.Modules.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.DatabaseAccess">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.DatabaseAccess.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.DatabaseAccess.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.DatabaseAccess.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.DatabaseManagement">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.DatabaseManagement.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.DataExtensions">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.DataExtensions.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.DataExtensions.Configuration">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.DataExtensions.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.DataExtensions.Sql">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.DataExtensions.Sql.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.DataModeling">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.DataModeling.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.DataModeling.Defaults">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.DataModeling.Defaults.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.Devices">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.Devices.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.EditableGridView">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.EditableGridView.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.EntityFramework.Core">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.EntityFramework.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.EntityFramework.SqlServer">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.EntityFramework.SqlServerCompact">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.EntityFramework.SqlServerCompact.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.EntityFrameworkSupport">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.EntityFrameworkSupport.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.ExternalLauncher">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.ExternalLauncher.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.FlexEditableGrid">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.FlexEditableGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.GridDefinition.Common">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.GridDefinition.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.GridDefinition.Core">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.GridDefinition.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.GridDefinition.Reboot">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.GridDefinition.Reboot.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.Helpers">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.InsTYNKT.Data">
+      <HintPath>C:\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.InsTYNKT.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.InsTYNKT.Sql">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.InsTYNKT.Sql.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.Launcher">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.Launcher.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.MdmDeploy">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.MdmDeploy.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.MvvmSupport">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.MvvmSupport.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.Printing">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.Printing.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.Printing.Configuration">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.Printing.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.Security.Sql">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.Security.Sql.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.ServiceGrid">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.ServiceGrid.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.SetupActions">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.SetupActions.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.SqlServerSupport">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.SqlServerSupport.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.SqlServerSupport.ApplicationLocksDbPackage">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.SqlServerSupport.ApplicationLocksDbPackage.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.SqlServerSupport.ApplicationSessionsDbPackage">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.SqlServerSupport.ApplicationSessionsDbPackage.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.SqlServerSupport.Module">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.SqlServerSupport.Module.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.TaskEditor">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.TaskEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.Time">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.Time.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.Time.Configuration">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.Time.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.UIFramework">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.UIFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.UIMetadata">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.UIMetadata.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.UIMetadata.Data">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.UIMetadata.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.UnitySupport">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.UnitySupport.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.VMPackage.39.2.0.5280">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.VMPackage.39.2.0.5280.dll</HintPath>
+    </Reference>
+    <Reference Include="InsERT.Mox.WpfControls">
+      <HintPath>..\..\..\..\..\..\nexoSDK_39.2.1.5310\Bin\InsERT.Mox.WpfControls.dll</HintPath>
+    </Reference>
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="Xceed.Wpf.AvalonDock, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Aero, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Aero.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.Metro, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.Metro.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.AvalonDock.Themes.VS2010, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.AvalonDock.Themes.VS2010.dll</HintPath>
+    </Reference>
+    <Reference Include="Xceed.Wpf.Toolkit, Version=4.3.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
+      <HintPath>..\packages\Extended.Wpf.Toolkit.4.3.0\lib\net40\Xceed.Wpf.Toolkit.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Class1.cs" />
+    <Compile Include="CSVSferaMapItem.cs" />
+    <Compile Include="SferaLauncher.cs" />
+    <Compile Include="XMLLoader.cs" />
+    <Compile Include="Utils.cs" />
+    <Compile Include="TableDef.cs" />
+    <Compile Include="ModelDef.cs" />
+    <Compile Include="HeaderDef.cs" />
+    <Compile Include="DataType.cs" />
+    <Compile Include="ColumnDef.cs" />
+    <Compile Include="Program2.cs" />
+    <Compile Include="XlsxExporter.Excel.cs" />
+    <Compile Include="CSV_tools.cs" />
+    <Compile Include="Form1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form1.Designer.cs">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form2.Designer.cs">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form3.Designer.cs">
+      <DependentUpon>Form3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Form4.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Form4.Designer.cs">
+      <DependentUpon>Form4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Form1.resx">
+      <DependentUpon>Form1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form2.resx">
+      <DependentUpon>Form2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form3.resx">
+      <DependentUpon>Form3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Form4.resx">
+      <DependentUpon>Form4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
