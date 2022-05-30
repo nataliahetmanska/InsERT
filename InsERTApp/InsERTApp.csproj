@@ -630,8 +630,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
-    <Compile Include="CSVSferaMapItem.cs" />
-    <Compile Include="SferaLauncher.cs" />
     <Compile Include="XMLLoader.cs" />
     <Compile Include="Utils.cs" />
     <Compile Include="TableDef.cs" />

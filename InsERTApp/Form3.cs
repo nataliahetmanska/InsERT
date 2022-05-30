@@ -14,7 +14,7 @@ namespace CSV_program
     {
         public Form3()
         {
-            modelDef = XMLLoader.LoadModelFromXml("C:\\Users\\Natalia\\Downloads\\InsERT.Moria.ModelDanych.ssdl");
+            modelDef = XMLLoader.LoadModelFromXml("D:\\InsERT.Moria.ModelDanych.ssdl");
             InitializeComponent();
         }
 

@@ -81,7 +81,7 @@ namespace CSV_program
             {
                 int index = tuple.Item1;
                 ColumnDef column = ((ColumnDef) tuple.Item2.SelectedItem);
-                return new CSVSferaMapItem(Form3.table.Name() + '.' + column.ColumnName(), index);
+                return new CSVSferaMapItem(Form3.table.Name() + '.' + column.ColumnName(), index, CSVSferaMapItem.MAP_TYPE_ENTITY);
             }).ToList(); 
         }
 

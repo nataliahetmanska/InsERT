@@ -121,9 +121,9 @@ namespace CSV_program
             // 
             // serverTextBox
             // 
-            this.serverTextBox.Location = new System.Drawing.Point(351, 161);
+            this.serverTextBox.Location = new System.Drawing.Point(324, 162);
             this.serverTextBox.Name = "serverTextBox";
-            this.serverTextBox.Size = new System.Drawing.Size(121, 26);
+            this.serverTextBox.Size = new System.Drawing.Size(199, 26);
             this.serverTextBox.TabIndex = 8;
             this.serverTextBox.Text = "LAPTOP-ARMN9PR1\\INSERTNEXO";
             // 
