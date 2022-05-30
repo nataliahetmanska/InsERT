@@ -14,11 +14,11 @@ namespace CSV_program
         [STAThread]
         static void Main()
         {
-            ModelDef loaded = XMLLoader.LoadModelFromXml("D:\\studia\\semestr 6\\ZPI\\modeldanych\\InsERT.Moria.ModelDanych.ssdl"); // add path 
-            List<ColumnDef> queryResult = loaded.findColumns("zamiennik", loaded.getTableDefByName("Asortymenty"));
-            foreach (ColumnDef column in queryResult)
-                Console.WriteLine(column);
-            Console.WriteLine();
+            //ModelDef loaded = XMLLoader.LoadModelFromXml("D:\\studia\\semestr 6\\ZPI\\modeldanych\\InsERT.Moria.ModelDanych.ssdl"); // add path 
+            //List<ColumnDef> queryResult = loaded.findColumns("zamiennik", loaded.getTableDefByName("Asortymenty"));
+            //foreach (ColumnDef column in queryResult)
+              //  Console.WriteLine(column);
+            //Console.WriteLine();
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
