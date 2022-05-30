@@ -7,7 +7,7 @@ namespace CSV_program
 {
     class XMLLoader
     {
-        private static HashSet<String> loadedTypes = new HashSet<String>();
+        private static HashSet<DataType> loadedTypes = new HashSet<DataType>();
 
 
         private static HeaderDef GetHeaderDef(string tableName, XDocument doc, XNamespace ns)
@@ -22,7 +22,7 @@ namespace CSV_program
             {
                 string columnName = columnNode.Attribute("Name").Value;
                 bool nullable = Boolean.Parse(columnNode.Attribute("Nullable").Value);
-                string rawType = columnNode.Attribute("Type").Value;
+                DataType rawType = (DataType) Enum.Parse(typeof(DataType), columnNode.Attribute("Type").Value.ToUpper().Replace("(MAX)", ""));
                 loadedTypes.Add(rawType);
                 int maxLength = -1;
                 if (columnNode.Attribute("MaxLength") != null)

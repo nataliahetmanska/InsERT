@@ -10,7 +10,7 @@ namespace CSV_program
     class ColumnDef
     {
         private string columnName; // pole nazwa kolumny
-        private string type; // pole typ kolumny
+        private DataType type; // pole typ kolumny
         private bool nullable; // pole przyjmujące wartość boolowską wskazującą czy wartością w kolumnie może być nullem
         private int maxLength; // pole zawierające max długość jeśli typem jest nvarchar
         public TableDef tableDef = null; // pole typu TableDef (potrzebne do podobieństwa nazw)
@@ -18,7 +18,7 @@ namespace CSV_program
         public List<ColumnDef> referencedIn = new List<ColumnDef>();
 
         // konstruktor
-        public ColumnDef(string columnName, string type, bool nullable, int maxLength)
+        public ColumnDef(string columnName, DataType type, bool nullable, int maxLength)
         {
             this.type = type;
             this.columnName = columnName;
@@ -32,7 +32,7 @@ namespace CSV_program
             return this.columnName;
         }
 
-        public string Type()
+        public DataType Type()
         {
             return this.type;
         }
