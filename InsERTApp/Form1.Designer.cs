@@ -92,7 +92,7 @@ namespace CSV_program
             this.pathTextBox.Name = "pathTextBox";
             this.pathTextBox.Size = new System.Drawing.Size(171, 26);
             this.pathTextBox.TabIndex = 5;
-            this.pathTextBox.Text = "C:\\Users\\Natalia\\Downloads\\Asortyment1.csv";
+            this.pathTextBox.Text = "D:\\Asortyment.csv";
             this.pathTextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // separatorTextBox
@@ -115,6 +115,7 @@ namespace CSV_program
             // 
             this.encodingComboBox.FormattingEnabled = true;
             this.encodingComboBox.Items.AddRange(new object[] {
+            "windows-1250",
             "UTF-8",
             "HTML",
             "URL",
@@ -125,7 +126,7 @@ namespace CSV_program
             this.encodingComboBox.Name = "encodingComboBox";
             this.encodingComboBox.Size = new System.Drawing.Size(171, 28);
             this.encodingComboBox.TabIndex = 8;
-            this.encodingComboBox.Text = "UTF-8";
+            this.encodingComboBox.Text = "windows-1250";
             // 
             // button1
             // 

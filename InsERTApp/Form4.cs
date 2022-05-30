@@ -71,9 +71,7 @@ namespace CSV_program
 
                 csvColumnIndexToComboBox.Add(Tuple.Create(i, comboBox));
             }
-
         }
-
 
         private List<CSVSferaMapItem> getMapping()
         {
@@ -92,7 +90,24 @@ namespace CSV_program
 
         private void button2_Click(object sender, EventArgs e)
         {
-            csv.ExportExecute(false, true, getMapping());
+
+            List<CSVSferaMapItem> mapList = new List<CSVSferaMapItem>();
+            mapList.Add(new CSVSferaMapItem("Asortyment.Symbol", 1, CSVSferaMapItem.MAP_TYPE_ENTITY));
+            mapList.Add(new CSVSferaMapItem("Asortyment.Nazwa", 2, CSVSferaMapItem.MAP_TYPE_ENTITY));
+            mapList.Add(new CSVSferaMapItem("Asortyment.Opis", 3, CSVSferaMapItem.MAP_TYPE_ENTITY));
+            mapList.Add(new CSVSferaMapItem("Asortyment.CenaEwidencyjna", 22, CSVSferaMapItem.MAP_TYPE_ENTITY));
+            mapList.Add(new CSVSferaMapItem("Asortyment.SklepInternetowy", 48, CSVSferaMapItem.MAP_TYPE_ENTITY));
+            mapList.Add(new CSVSferaMapItem("Asortyment.WyliczenieZWartosci", 48, CSVSferaMapItem.MAP_TYPE_ENTITY));
+            mapList.Add(new CSVSferaMapItem("Asortyment.Numer", 48, CSVSferaMapItem.MAP_TYPE_ENTITY));
+            mapList.Add(new CSVSferaMapItem("Asortyment.TerminWaznosciKontrola", 41, CSVSferaMapItem.MAP_TYPE_ENTITY));
+            mapList.Add(new CSVSferaMapItem("Asortyment.TerminWaznosciLiczbaDni", 42, CSVSferaMapItem.MAP_TYPE_ENTITY));
+            mapList.Add(new CSVSferaMapItem("Asortyment.Producent.1.NazwaSkrocona", 25, CSVSferaMapItem.MAP_TYPE_REL));
+            mapList.Add(new CSVSferaMapItem("Asortyment.Odbiorca.2.Uwagi", 27, CSVSferaMapItem.MAP_TYPE_REL));
+            mapList.Add(new CSVSferaMapItem("Asortyment.Dostawca.1.Uwagi", 26, CSVSferaMapItem.MAP_TYPE_REL));
+            mapList.Add(new CSVSferaMapItem("Asortyment.Odbiorca.2.NazwaSkrocona", 28, CSVSferaMapItem.MAP_TYPE_REL));
+
+            csv.ExportExecute(false, true, mapList);
+            //csv.ExportExecute(false, true, getMapping());
         }
     }
 }
