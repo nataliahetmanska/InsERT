@@ -5,8 +5,6 @@ using System.Linq;
 
 namespace CSV_program
 {
-    using System.Xml.Linq;
-
     class XMLLoader
     {
         private static HashSet<String> loadedTypes = new HashSet<String>();
@@ -26,7 +24,7 @@ namespace CSV_program
                 bool nullable = Boolean.Parse(columnNode.Attribute("Nullable").Value);
                 string rawType = columnNode.Attribute("Type").Value;
                 loadedTypes.Add(rawType);
-                int? maxLength = null;
+                int maxLength = -1;
                 if (columnNode.Attribute("MaxLength") != null)
                     maxLength = int.Parse(columnNode.Attribute("MaxLength").Value);
 
@@ -34,6 +32,38 @@ namespace CSV_program
             }
 
             return new HeaderDef(columnNameToColumnDef);
+        }
+
+        private static Tuple<string, string> GetTablePathAndColumnNameFromAssociation(XElement association, XNamespace ns, string type)
+        {
+            return association.Descendants(ns + "ReferentialConstraint")
+                        .Descendants(ns + type)
+                        .Select(reference => {
+                            string tablePath = association.Descendants(ns + "End")
+                                .Where(e => e.Attribute("Role").Value == reference.Attribute("Role").Value)
+                                .Select(e => e.Attribute("Type").Value).First();
+                            string columnName = reference.Descendants(ns + "PropertyRef")
+                                .Select(p => p.Attribute("Name").Value).First();
+
+                            return Tuple.Create(tablePath, columnName);
+                        }).First();
+        }
+
+        private static void loadRelations(ModelDef model, XDocument doc, XNamespace ns)
+        {
+            doc.Descendants(ns + "Association")
+                .ToList().ForEach(association => {
+                    Tuple<string, string> dependentData = GetTablePathAndColumnNameFromAssociation(association, ns, "Dependent");
+                    Tuple<string, string> principalData = GetTablePathAndColumnNameFromAssociation(association, ns, "Principal");
+
+                    ColumnDef dependentColumnDef = model.PathToTable()[dependentData.Item1]
+                        .ColumnHeader().ColumnNameToColumnDef()[dependentData.Item2];
+                    ColumnDef principalColumnDef = model.PathToTable()[principalData.Item1]
+                        .ColumnHeader().ColumnNameToColumnDef()[principalData.Item2];
+
+                    principalColumnDef.referencedIn.Add(dependentColumnDef);
+                    dependentColumnDef.references = principalColumnDef;
+                });
         }
 
         public static ModelDef LoadModelFromXml(string source)
@@ -58,12 +88,9 @@ namespace CSV_program
 
                 model.PathToTable().Add(path, table);
             }
-            /*
-            foreach (String type in loadedTypes)
-            {
-                Console.WriteLine(type);
-            }
-            */
+
+            loadRelations(model, doc, ns);
+
             return model;
         }
     }

@@ -9,13 +9,16 @@ namespace CSV_program
     /// </summary>
     class ColumnDef
     {
-        private string columnName;
-        private string type;
-        private bool nullable;
-        private int? maxLength;
-        public TableDef tableDef = null;
+        private string columnName; // pole nazwa kolumny
+        private string type; // pole typ kolumny
+        private bool nullable; // pole przyjmujące wartość boolowską wskazującą czy wartością w kolumnie może być nullem
+        private int maxLength; // pole zawierające max długość jeśli typem jest nvarchar
+        public TableDef tableDef = null; // pole typu TableDef (potrzebne do podobieństwa nazw)
+        public ColumnDef references = null;
+        public List<ColumnDef> referencedIn = new List<ColumnDef>();
 
-        public ColumnDef(string columnName, string type, bool nullable, int? maxLength)
+        // konstruktor
+        public ColumnDef(string columnName, string type, bool nullable, int maxLength)
         {
             this.type = type;
             this.columnName = columnName;
@@ -23,6 +26,7 @@ namespace CSV_program
             this.maxLength = maxLength;
         }
 
+        //gettery
         public string ColumnName()
         {
             return this.columnName;
@@ -38,10 +42,12 @@ namespace CSV_program
             return this.nullable;
         }
 
-        public int? MaxLength()
+        public int MaxLength()
         {
             return this.maxLength;
         }
+
+        // nadpisanie potrzebne do wykrywania nazw nazwatabeli . nazwakolumny
         public override string ToString()
         {
             if (this.tableDef == null)

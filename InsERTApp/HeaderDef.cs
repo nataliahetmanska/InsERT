@@ -8,6 +8,7 @@ namespace CSV_program
     /// </summary>
     class HeaderDef
     {
+        // string - nazwa kolumny, ColumnDef - obiekt zawierający wszystkie potrzebne o niej informacje
         private Dictionary<string, ColumnDef> columnNameToColumnDef;
 
         public HeaderDef(Dictionary<string, ColumnDef> columnNameToColumnDef) //konstruktor
@@ -15,7 +16,7 @@ namespace CSV_program
             this.columnNameToColumnDef = columnNameToColumnDef;
         }
 
-        public Dictionary<string, ColumnDef> ColumnNameToColumnDef() //geter
+        public Dictionary<string, ColumnDef> ColumnNameToColumnDef() //getter
         {
             return this.columnNameToColumnDef;
         }

@@ -21,22 +21,25 @@ namespace CSV_program
             this.pathToTable = pathToTable;
         }
 
+        public TableDef getTableDefByName(String name)
+        {
+            return pathToTable.Values.AsEnumerable().Where(table => table.Name() == name).First();
+        }
+
         public List<ColumnDef> findColumns(String query, TableDef table)
         {
             // Lista na kolumny
             List<ColumnDef> columns = new List<ColumnDef>();
 
-            // Pobranie wszystkich kolumn w modelu i dodanie do listy
-            table.ColumnHeader().ColumnNameToColumnDef().Values.ToList()
-                .ForEach(column => columns.Add(column));
+            // Pobranie wszystkich kolumn zadanej tabeli oraz kolumn będących w relacji (tabele kluczy obcych) i dodanie do listy
+            table.GetAllTablesReferencedByForeignKeys(true)
+                .ForEach(tableDef => tableDef.ColumnHeader().ColumnNameToColumnDef().Values.ToList()
+                .ForEach(column => columns.Add(column)));
 
             // Lista na wyniki
             List<Tuple<ColumnDef, double>> queryResult = new List<Tuple<ColumnDef, double>>();
 
             string queryLower = query.ToLower().Replace(" ", "");
-
-            // Próg podobieństwa
-            double simThreshold = 0.6;
 
             foreach (ColumnDef column in columns)
             {
@@ -61,7 +64,7 @@ namespace CSV_program
                     // Podobieństwo Levenshteina <0, 1)
                     else
                     {
-                        similarity = Utils.CalculateSimilarity(subQuery, columnLower);
+                        similarity = Utils.Similarity(subQuery, columnLower);
                     }
 
                     similarities.Add(similarity);
