@@ -2,14 +2,28 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using InsERT.Moria.Asortymenty;
+using InsERT.Moria.Asortymenty.Typy_wyliczeniowe;
+using InsERT.Moria.Dokumenty.Logistyka;
 using InsERT.Moria.Klienci;
 using InsERT.Moria.ModelDanych;
 using InsERT.Moria.Sfera;
+using InsERT.Moria.SrodkiTrwale;
+using InsERT.Moria.Waluty;
+using PrzykladyKartoteki;
+
 using System.Xml.Linq;
+using System.Xml;
+using System.Diagnostics;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Spreadsheet;
 using System.Text.RegularExpressions;
 using System.IO;
+using CSV_program;
 using Tuple = System.Tuple;
+using Xceed.Wpf.Toolkit;
+using System.Windows.Forms;
 
 namespace CSV_program
 {
@@ -39,11 +53,14 @@ namespace CSV_program
             this._separators = separators;
             this._encoding = encoding;
 
+
+            //_launcher = new SferaLauncher("MAJA-DELL\\INSERTNEXO", "Nexo_Demo_1", "Szef", "robocze", "sa", "insert");
             _launcher = new SferaLauncher(server, dbName, userStrefa, passwordStrefa, userDB, passwordDB);
 
         }
 
         //Methods defined
+
 
         //get/set separator
         public string[] Separators
@@ -51,14 +68,17 @@ namespace CSV_program
             get => this._separators;
 
             set => this._separators = value;
+
         }
 
         //get/set number of headers' rows
         public int HeaderRowsNo
         {
+
             get => this._headerRowsNo;
 
             set => this._headerRowsNo = value;
+
 
         }
 
@@ -87,6 +107,9 @@ namespace CSV_program
             try
             {
 
+
+
+
                 using (var fileStream = System.IO.File.OpenRead(this.FilePath))
 
                 using (var streamReader = new Microsoft.VisualBasic.FileIO.TextFieldParser(fileStream, Encoding.GetEncoding(this.Encdng)))
@@ -111,6 +134,7 @@ namespace CSV_program
                             }
                             else
                             {
+
                                 previousField = currentFields[fieldIdx];
                             }
 
@@ -119,6 +143,8 @@ namespace CSV_program
                         csvHeaders.Add(currentFields); //the parts table is added as a header line in csvHeaders 
                         lineNo++;
                     }
+
+
 
 
                     int noHeaderInFirstRow = csvHeaders.First().Length;
@@ -140,26 +166,35 @@ namespace CSV_program
                                     columnHeader = header[i];
                                 }
                             }
+
                         }
                         headersResult.Add(columnHeader);
                     }
 
+
                     fileStream.Close();
+
+
                 }
             }
             catch (Microsoft.VisualBasic.FileIO.MalformedLineException e)
             {
                 System.Windows.Forms.MessageBox.Show("Błąd w lokalizacji: " + this.GetType().Name + " " + System.Reflection.MethodBase.GetCurrentMethod().Name + "\n" + "Niespójność w ilości kolumn nagłówków w wierszach. Nie można utworzyć nagłówków. Popraw plik csv.", "Błąd");
+
+
+
             }
             catch (Exception e)
             {
                 System.Windows.Forms.MessageBox.Show("Błąd w lokalizacji: " + this.GetType().Name + " " + System.Reflection.MethodBase.GetCurrentMethod().Name + "\n" + "Nie można otworzyć pliku lub brak do niego dostępu. " + e.Message + " " + (e.InnerException != null ? e.InnerException.Message : ""), "Błąd");
+
+
             }
 
             return headersResult;
 
-        }
 
+        }
         //EXTRA: opcjonalny parametr removeMinus, który definiuje czy wyjściowe dane maja zawierać "-" jako pustą wartość czy jawnie pustą wartość
         public List<string[]> getData(bool removeMinus = false)
         {
@@ -167,12 +202,16 @@ namespace CSV_program
             int lineNo = 0;
             try
             {
+
+
                 using (var fileStream = System.IO.File.OpenRead(this.FilePath))
                 using (var streamReader = new Microsoft.VisualBasic.FileIO.TextFieldParser(fileStream, Encoding.GetEncoding(this.Encdng)))
 
                 {
                     streamReader.TextFieldType = Microsoft.VisualBasic.FileIO.FieldType.Delimited;
                     streamReader.Delimiters = this.Separators;
+
+
 
                     string[] previousFields = null;
                     string[] currentFields = null;
@@ -210,15 +249,21 @@ namespace CSV_program
                     }
                     return csvData;
                 }
-            }
 
+
+            }
             catch (Microsoft.VisualBasic.FileIO.MalformedLineException e)
             {
                 System.Windows.Forms.MessageBox.Show("Błąd w lokalizacji: " + this.GetType().Name + " " + System.Reflection.MethodBase.GetCurrentMethod().Name + "\n" + "Niespójność w ilości kolumn w wierszu (" + lineNo.ToString() + "). Popraw plik csv. Żadne dane nie zostały przetworzone.", "Błąd");
+
+
+
             }
             catch (Exception e)
             {
                 System.Windows.Forms.MessageBox.Show("Błąd w lokalizacji: " + this.GetType().Name + " " + System.Reflection.MethodBase.GetCurrentMethod().Name + "\n" + "Nie można otworzyć pliku lub brak do niego dostępu. Brak danych do przetworzenia. " + e.Message + " " + (e.InnerException != null ? e.InnerException.Message : ""), "Błąd");
+
+
             }
             return new List<string[]>();
 
@@ -241,6 +286,8 @@ namespace CSV_program
                 return;
             }
 
+
+
             //blok tworzący xmla (razem z prostymi relacjami - czyli tylko z jedną kartoteką (jeden poziom))
 
             if (exportToXML == true)
@@ -256,6 +303,35 @@ namespace CSV_program
                                                                                 {
                                                                                     return mapItem.MapType == CSVSferaMapItem.MAP_TYPE_REL; //lista mapowań tylko typu Relacje
                                                                                 });
+
+                csvSferaMapsRelTypeOnly.Sort((x, y) => x.StrSferaModelNSAttrib.CompareTo(y.StrSferaModelNSAttrib));
+                //sortuję listę typu Relacje po stringu mapowania dzięki temu elementy są poukdładane wg relacji i nr instancji w obrębie relacji, czyli np:
+                //przed:
+                // Asortyment.Dostawca.1.Symbol
+                // Asortyment.Dostawca.2.Nazwa
+                // Asortyment.Dostawca.3.NIP
+                // Asortyment.Dostawca.2.Symbol
+                // Asortyment.Dostawca.1.Nazwa
+                // Asortyment.Odbiorca.1.Symbol
+                // Asortyment.Dostawca.2.NIP
+                // Asortyment.Dostawca.3.Symbol
+                // Asortyment.Dostawca.3.Nazwa
+                // Asortyment.Dostawca.1.NIP
+
+                // po:
+                // Asortyment.Dostawca.1.Nazwa
+                // Asortyment.Dostawca.1.NIP
+                // Asortyment.Dostawca.1.Symbol
+
+                // Asortyment.Dostawca.2.Nazwa
+                // Asortyment.Dostawca.2.NIP
+                // Asortyment.Dostawca.2.Symbol
+
+                // Asortyment.Dostawca.3.Nazwa
+                // Asortyment.Dostawca.3.NIP
+                // Asortyment.Dostawca.3.Symbol
+
+                // Asortyment.Odbiorca.1.Symbol
 
                 CSVSferaMapItem firstMap = csvSferaMaps.First(); //bierzemy pierwsze mapowanie z listy
                 var nsValues = firstMap.getXmlNamespaceName();
@@ -358,9 +434,70 @@ namespace CSV_program
 
                     }
 
+
+
+
+                    /*if (firstElement.getCatalogName().Equals(CSVSferaMapItem.CATALOG_ASORTYMENT))
+                    {
+                        
+                    }
+                    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// stare kody: jak się tworzy Podmioty i Środki trwałe 
+                    else if (firstElement.getCatalogName().Equals(CSVSferaMapItem.CATALOG_PODMIOT))
+                    {
+                        IPodmioty podmioty = sfera.PodajObiektTypu<IPodmioty>();
+                        foreach (var row in getData(removeMinus))
+                        {
+                            using (IPodmiot podmiot = podmioty.UtworzFirme())
+                            {
+                                podmiot.AutoSymbol();
+                                //na obecny moment bez relacji!!!
+                                foreach (CSVSferaMapItem map in csvSferaMaps)
+                                {
+                                    podmiot.Dane.GetType().GetProperty(map.getBaseAttribName()).SetValue(podmiot.Dane, row[map.CSVColumnIdx]); //https://docs.microsoft.com/en-us/dotnet/api/system.type.getproperty?view=net-6.0
+                                }
+                                if (!podmiot.Zapisz())
+                                    podmiot.WypiszBledy();
+                            }
+                        }
+                    }
+                    else if (firstElement.getCatalogName().Equals(CSVSferaMapItem.CATALOG_SRODEKTRWALY))
+                    {
+                        ISrodkiTrwale srodkiTrwale = sfera.PodajObiektTypu<InsERT.Moria.SrodkiTrwale.ISrodkiTrwale>();
+                        IGrupySrodkowTrwalychDane grupy = sfera.PodajObiektTypu<IGrupySrodkowTrwalychDane>();
+                        IQueryable<RodzajSrodkaTrwalego> rodzaje = sfera.PodajObiektTypu<IRodzajeSrodkowTrwalych>().Dane.Wszystkie();
+                        foreach (var row in getData(removeMinus))
+                        {
+                            using (ISrodekTrwaly srodekTrwaly = srodkiTrwale.Utworz())
+                            {
+                                //możliwe że trzeba dodać wypełnienie domyślnymi wartosciami???
+                                int nr = srodkiTrwale.Dane.Wszystkie().Max(s => s.Id) + 1;
+                                srodekTrwaly.Dane.NrInwentarzowy = string.Format("{0:00000}", nr);
+                                foreach (CSVSferaMapItem map in csvSferaMaps)
+                                {
+                                    //logika dla wymaganego pola kst
+                                    if (map.getBaseAttribName().Equals("KST"))
+                                    {
+                                        //odszukaj kst
+                                        var strKST = row[map.CSVColumnIdx];
+                                        srodekTrwaly.UstawJakoSrodekTrwalyKST2010(rodzaje.Where(r => r.Symbol == strKST).Single()); //https://docs.microsoft.com/en-us/dotnet/api/system.type.getproperty?view=net-6.0
+                                        //srodekTrwaly.UstawJakoSrodekTrwalyKST2016(rodzaje.Where(r => r.Symbol == row[map.CSVColumnIdx]).Single());
+                                    }
+                                    else
+                                    {
+                                        srodekTrwaly.Dane.GetType().GetProperty(map.getBaseAttribName()).SetValue(srodekTrwaly.Dane, row[map.CSVColumnIdx]); //https://docs.microsoft.com/en-us/dotnet/api/system.type.getproperty?view=net-6.0
+                                    }
+                                }
+                        
+                                if (!srodekTrwaly.Zapisz())
+                                    srodekTrwaly.WypiszBledy();
+                            }
+                        }
+                    }*/
                     saveToSferaStr = "Zapisano obiekty do sfery";
+
                 }
             }
+
         }
 
 
@@ -372,12 +509,26 @@ namespace CSV_program
 
             if (firstElement.getCatalogName().Equals(CSVSferaMapItem.CATALOG_ASORTYMENT)) //z firstElement czytam nazwę głównej kartoteki i wchodzę do odpowiedniej sekcji która go obsługuje
             {
+                // OBSŁUGA ASORTYMENTU
+
+                //mapowanie "Symbol" jest wymagane
+                //szukam czy jest mapowanie względem kluczowego pola (Symbol), po któym w piersszej kolejności szukam czy istnieje już asortyment w kartotece
+                //takie pole to na sztywno Symbol dla asortymentu (jest unique)
+
+
+
+
                 CSVSferaMapItem mapSymbol = csvSferaMaps.Find(map => map.MapType == CSVSferaMapItem.MAP_TYPE_ENTITY && map.getBaseAttribName().Equals("Symbol")); //szukam mapowania "Symbol" czyli np Asortyment.Symbol 
 
                 if (mapSymbol == null)
                 {
+
                     throw new NullReferenceException("Brak mapowania dla Symbol dla kartoteki " + CSVSferaMapItem.CATALOG_ASORTYMENT + " Popraw mapowanie.");
+
+
                 }
+
+
 
                 string mapSymbolValue = csvValues[mapSymbol.CSVColumnIdx]; //pobieram wartość z csv dla tego mapowania (dla atrybutu Symbol)
                 if (mapSymbolValue.Equals(""))
@@ -421,6 +572,35 @@ namespace CSV_program
                                                                                     return mapItem.MapType == CSVSferaMapItem.MAP_TYPE_REL; //lista mapowań tylko typu Relacje
                                                                                 });
                 csvSferaMapsRelTypeOnly.Sort((x, y) => x.StrSferaModelNSAttrib.CompareTo(y.StrSferaModelNSAttrib));
+                //sortuję listę typu Relacje po stringu mapowania dzięki temu elementy są pokudładane wg relacji i nr instancji w obrębie relacji, przykład:
+                //przed:
+                // Asortyment.Dostawca.1.Symbol
+                // Asortyment.Dostawca.2.Nazwa
+                // Asortyment.Dostawca.3.NIP
+                // Asortyment.Dostawca.2.Symbol
+                // Asortyment.Dostawca.1.Nazwa
+                // Asortyment.Odbiorca.1.Symbol
+                // Asortyment.Dostawca.2.NIP
+                // Asortyment.Dostawca.3.Symbol
+                // Asortyment.Dostawca.3.Nazwa
+                // Asortyment.Dostawca.1.NIP
+
+                // po:
+                // Asortyment.Dostawca.1.Nazwa
+                // Asortyment.Dostawca.1.NIP
+                // Asortyment.Dostawca.1.Symbol
+
+                // Asortyment.Dostawca.2.Nazwa
+                // Asortyment.Dostawca.2.NIP
+                // Asortyment.Dostawca.2.Symbol
+
+                // Asortyment.Dostawca.3.Nazwa
+                // Asortyment.Dostawca.3.NIP
+                // Asortyment.Dostawca.3.Symbol
+
+                // Asortyment.Odbiorca.1.Symbol
+
+
 
                 //w pierwszej kolejności wypełnianie atrybutów tylko typy entity  (te proste)
                 if (csvSferaMapsEntityTypeOnly.Count > 0)
@@ -446,10 +626,22 @@ namespace CSV_program
                 //a teraz relacje :/ <3 :)))
                 foreach (List<CSVSferaMapItem> listOfMapsSameRelInst in NextRelationInstanceMaps(csvSferaMapsRelTypeOnly))   //NextRelationInstanceMaps(csvSferaMapsRelTypeOnly)) ---> enumerator ; zwraca po sekcjach (opisane niżej)
                 {
+                    //listOfMapsSameRelInst zawiera listę mapowań jednej relacji i tej samej instancji
+                    //np:
+
+                    // Asortyment.Dostawca.3.Nazwa
+                    // Asortyment.Dostawca.3.NIP
+                    // Asortyment.Dostawca.3.Symbol
+
 
                     //obsługuję relacje: Dostawca (n) , Odbiorca (n), Producent (tylko jeden)
                     if (listOfMapsSameRelInst.First().getRelName().Equals(CSVSferaMapItem.CATALOG_ODBIORCA))
                     {
+                        //po polu kluczowym znajdz w katalogu podmiotów, jak nie znajdujesz to utworz nowy
+                        //wypełnij jego pola
+                        //i dodaj obiekt relacyjny do towaru 
+
+
                         CSVSferaMapItem mapNazwaSkrocona = listOfMapsSameRelInst.Find(map => map.getBaseAttribName().Equals("NazwaSkrocona"));
                         if (mapNazwaSkrocona == null)
                         {
@@ -466,6 +658,10 @@ namespace CSV_program
                             + CSVSferaMapItem.CATALOG_ODBIORCA + "Brak wartości dla kluczowego atrybutu NazwaSkrocona w pliku cvs w linii " + csvLineNo.ToString() + ". Relacja nie została utworzona.", "Ostrzeżenie");
                             continue;
                         }
+
+
+
+
 
                         IPodmioty podmioty = sfera.PodajObiektTypu<IPodmioty>();
 
@@ -511,6 +707,9 @@ namespace CSV_program
                         if (!towar.Zapisz())
                             towar.WypiszBledy();
 
+
+
+
                     }
                     else if (listOfMapsSameRelInst.First().getRelName().Equals(CSVSferaMapItem.CATALOG_PRODUCENT))
                     {
@@ -531,6 +730,7 @@ namespace CSV_program
                             + CSVSferaMapItem.CATALOG_PRODUCENT + "Brak wartości dla kluczowego atrybutu NazwaSkrocona w pliku csv w linii " + csvLineNo.ToString() + ". Relacja nie została utworzona.", "Ostrzeżenie");
                             continue;
 
+
                         }
 
                         IPodmioty podmioty = sfera.PodajObiektTypu<IPodmioty>();
@@ -543,6 +743,7 @@ namespace CSV_program
                         {
                             //nie ma odbiorcy o takiej nazwieskroconej w kartotece wiec go tworzymy
                             producent = podmioty.UtworzFirme();
+
                         }
                         else
                         {
@@ -639,8 +840,22 @@ namespace CSV_program
                         //na końcu zapisz towar
                         if (!towar.Zapisz())
                             towar.WypiszBledy();
+
+
+
+
                     }
+
+
+
                 }
+
+
+
+
+
+
+
             }
         }
         protected void ValueOnAttribEntity<T>(T dane, string valueStr, CSVSferaMapItem mapItem)
@@ -685,6 +900,11 @@ namespace CSV_program
 
             foreach (var map in csvSferaMaps)
             {
+
+
+                //bierzemy "String.String.Number."
+
+
                 Regex regexp = new Regex(strRegex);
 
                 Match mt = regexp.Match(map.StrSferaModelNSAttrib);
@@ -709,12 +929,28 @@ namespace CSV_program
                 yield return results;
 
         }
+
+
+
+
     }
+
+    /*
+    Uwagi:
+    - Pola w mapowaniu rozdzielane są kropką
+    - Kropka nie może występować w nazwach 
+    - Mapowanie jest case sensitive 
+    - Rodzaje mapowań zaczynają się od: Podmiot (czyli Klient) , SrodekTrwaly, Asortyment
+                                        Ogólny schemat: kartoteka.atrybut , kartoteka.kolekcja.instancja.atrybut
+                                        Przykład: "Podmiot.NIP" lub "Podmiot.Symbol" lub "Podmiot.Kontakty.1.Typ" lub "Podmiot.Kontakty.1.Wartosc" lub "Podmiot.Kontakty.2.Typ" ...
+    - Klasa wiąże atrybut z indeksem kolumny w csv
+    - idx kolumy w csv zaczyna się od 0 
+     */
 
     public class CSVSferaMapItem
     {
         public static string CATALOG_PODMIOT = "Podmiot";
-        public static string CATALOG_ASORTYMENT = "Asortymenty";
+        public static string CATALOG_ASORTYMENT = "Asortyment";
         public static string CATALOG_SRODEKTRWALY = "SrodekTrwaly";
         public static string CATALOG_DOSTAWCA = "Dostawca";
         public static string CATALOG_ODBIORCA = "Odbiorca";
@@ -796,6 +1032,8 @@ namespace CSV_program
             return attribsMap[attribsMap.Length - 1];
 
         }
+        // Pomysł na kolejne metody do implementacji: isBaseAttrib(), isRelAttrib(), getRelInstanceNumber()
+
 
         //metody do mapowania
         public string getRelName() //zwraca nazwę relacji
@@ -809,6 +1047,8 @@ namespace CSV_program
             {
                 return ""; // pusty string jak mapowanie nie jest typu Relacje
             }
+
+
         }
 
         public int getRelInstanceNumber() //zwraca 
@@ -822,7 +1062,16 @@ namespace CSV_program
             {
                 return -1; // -1 jako błąd
             }
+
+
         }
+
+
+
+
+
+
+
     }
 
     public class SferaLauncher
@@ -854,4 +1103,8 @@ namespace CSV_program
             return sfera;
         }
     }
+
+
+
+
 }

@@ -93,7 +93,6 @@ namespace CSV_program
             this.pathTextBox.Size = new System.Drawing.Size(171, 26);
             this.pathTextBox.TabIndex = 5;
             this.pathTextBox.Text = "D:\\Asortyment.csv";
-            this.pathTextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // separatorTextBox
             // 
